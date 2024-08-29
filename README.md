@@ -56,10 +56,3 @@ The API will be available at `http://localhost:8000`. You can access the interac
 - Pydantic models for request/response validation
 - Interactive API documentation with Swagger UI
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License.
