@@ -1,0 +1,33 @@
+---
+id: import-fastapi
+language: python
+rule:
+  pattern: import fastapi
+fix: from fastapi import FastAPI, Depends, HTTPException, status
+
+---
+id: import-from-modules
+language: python
+rule:
+  pattern: import $MODULE
+  where:
+    $MODULE: 
+      matches: (database|schemas|models|crud|auth)
+fix: from $MODULE import *
+
+---
+id: fastapi-usage
+language: python
+rule:
+  pattern: fastapi.$FUNC
+  where:
+    $FUNC:
+      matches: (FastAPI|Depends|HTTPException)
+fix: $FUNC
+
+---
+id: sqlalchemy-session
+language: python
+rule:
+  pattern: sqlalchemy.orm.Session
+fix: Session
