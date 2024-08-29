@@ -72,3 +72,18 @@ async def delete_post(
     if not success:
         raise fastapi.HTTPException(status_code=404, detail="Blog post not found")
     return {"detail": "Blog post deleted successfully"}
+
+@app.post("/blog_posts/{post_id}/comments", response_model=comments.CommentInDB)
+async def add_comment(
+    post_id: int,
+    comment: comments.CommentCreate,
+    db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)
+):
+    return comments.add_comment(db, comment, post_id)
+
+@app.get("/blog_posts/{post_id}/comments", response_model=List[comments.CommentInDB])
+async def get_post_comments(
+    post_id: int,
+    db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)
+):
+    return comments.get_comments(db, post_id)

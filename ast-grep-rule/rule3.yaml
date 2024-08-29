@@ -1,0 +1,6 @@
+rule:
+  # atomic rule
+  pattern: "import $MODULE"
+  kind: "import_statement"
+  regex: "database|schemas|models|crud|auth|comments"
+  message: "Use 'from $MODULE import *' instead of 'import $MODULE'"

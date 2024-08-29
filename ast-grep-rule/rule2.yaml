@@ -1,0 +1,6 @@
+rule:
+  # atomic rule
+  pattern: "import fastapi"
+  kind: "import_statement"
+  regex: "fastapi"
+  message: "Change 'import fastapi' to 'from fastapi import FastAPI, Depends, HTTPException, status'"
