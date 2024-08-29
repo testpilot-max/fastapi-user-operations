@@ -1,0 +1,6 @@
+rule:
+  # atomic rule
+  pattern: "sqlalchemy.orm.Session"
+  kind: "attribute"
+  regex: "Session"
+  message: "Change 'sqlalchemy.orm.Session' to 'Session' and import it from sqlalchemy.orm"
