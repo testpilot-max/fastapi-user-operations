@@ -87,3 +87,8 @@ async def get_post_comments(
     db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)
 ):
     return comments.get_comments(db, post_id)
+
+import fastapi.responses
+@app.get("/health")
+async def health_check():
+    return fastapi.responses.JSONResponse(content={"status": "healthy"})
