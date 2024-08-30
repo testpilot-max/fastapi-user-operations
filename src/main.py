@@ -111,3 +111,48 @@ async def create_category(
     print(f"New category created: {new_category['name']}")
     
     return CategoryCreate(**new_category)
+
+
+@app.get("/posts/{post_id}/analytics", response_model=PostAnalytics)
+async def get_post_analytics(
+    post_id: int,
+    db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db),
+    current_user: models.User = fastapi.Depends(auth.get_current_user)
+):
+    # Simulating fetching analytics data
+    # In a real application, you would query this from a database
+    analytics_data = {
+        "post_id": post_id,
+        "views": 1000,
+        "likes": 50,
+        "comments": 25,
+        "last_viewed": datetime.datetime.now()
+    }
+    
+    # Log analytics request
+    print(f"Analytics requested for post {post_id} by user {current_user.username}")
+    
+    return PostAnalytics(**analytics_data)
+
+# New endpoint to get analytics for all posts
+@app.get("/posts/analytics", response_model=List[PostAnalytics])
+async def get_all_posts_analytics(
+    db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db),
+    current_user: models.User = fastapi.Depends(auth.get_current_user)
+):
+    # Simulating fetching analytics data for multiple posts
+    analytics_data = [
+        {
+            "post_id": i,
+            "views": 1000 * i,
+            "likes": 50 * i,
+            "comments": 25 * i,
+            "last_viewed": datetime.datetime.now() - datetime.timedelta(days=i)
+        }
+        for i in range(1, 6)  # Simulating data for 5 posts
+    ]
+    
+    # Log analytics request
+    print(f"Analytics requested for all posts by user {current_user.username}")
+    
+    return [PostAnalytics(**data) for data in analytics_data]

@@ -32,3 +32,10 @@ class BlogPostInDB(BaseModel):
 class CategoryCreate(BaseModel):
     name: str
     description: str
+
+class PostAnalytics(BaseModel):
+    post_id: int
+    views: int
+    likes: int
+    comments: int
+    last_viewed: datetime.datetime
