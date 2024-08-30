@@ -1,5 +1,0 @@
-id: incorrect-fastapi-import
-language: Python
-rule:
-  pattern: import fastapi
-  fix: from fastapi import FastAPI, Depends, HTTPException, status

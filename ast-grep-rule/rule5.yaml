@@ -1,5 +1,0 @@
-id: incorrect-comments-import
-language: Python
-rule:
-  pattern: import comments
-  fix: from comments import CommentCreate, CommentInDB, add_comment, get_comments

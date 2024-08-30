@@ -1,8 +1,0 @@
-id: incorrect-fastapi-function-usage
-language: Python
-rule:
-  pattern: fastapi.$FUNC
-  where:
-    $FUNC:
-      matches: (FastAPI|Depends|HTTPException)
-  fix: $FUNC
