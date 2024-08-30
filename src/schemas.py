@@ -39,3 +39,9 @@ class PostAnalytics(BaseModel):
     likes: int
     comments: int
     last_viewed: datetime.datetime
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None

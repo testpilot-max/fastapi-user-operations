@@ -1,0 +1,5 @@
+id: incorrect-fastapi-import
+language: Python
+message: "Change 'import fastapi' to 'from fastapi import FastAPI, Depends, HTTPException, status' for better code organization and to avoid prefixing FastAPI components."
+rule:
+  pattern: "import fastapi"

@@ -5,7 +5,6 @@ import sqlalchemy
 from typing import List
 from pydantic import BaseModel
 
-# Incorrect imports (to be fixed by ast-grep)
 import database
 import schemas
 import models
@@ -18,6 +17,22 @@ app = fastapi.FastAPI()
 def register_user(user: schemas.UserCreate, db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)):
     db_user = crud.create_user(db, user)
     return schemas.UserInDB(id=db_user.id, username=db_user.username)
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item):
+    return item
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    return {"item_name": item.name, "item_id": item_id}
+
+@app.delete("/items/{item_id}")
+async def delete_item(item_id: int):
+    return {"deleted": item_id}
 
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = fastapi.Depends(), db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)):

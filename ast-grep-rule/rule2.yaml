@@ -1,8 +1,0 @@
-id: incorrect-local-module-import
-language: Python
-rule:
-  pattern: import $MODULE
-  where:
-    $MODULE:
-      matches: (database|schemas|models|crud|auth|comments)
-  fix: from $MODULE import *

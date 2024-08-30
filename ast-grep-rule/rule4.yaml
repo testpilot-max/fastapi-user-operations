@@ -1,5 +1,0 @@
-id: incorrect-sqlalchemy-session-import
-language: Python
-rule:
-  pattern: sqlalchemy.orm.Session
-  fix: Session

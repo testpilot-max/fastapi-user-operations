@@ -1,0 +1,13 @@
+id: incorrect-local-module-imports
+language: Python
+message: "Use 'from module import *' instead of 'import module' for local modules to import all names directly into the current namespace."
+rule:
+  any:
+    - pattern: "import database"
+    - pattern: "import schemas"
+    - pattern: "import models"
+    - pattern: "import crud"
+    - pattern: "import auth"
+    - pattern: "import comments"
+  not:
+    pattern: "from $MODULE import *"
