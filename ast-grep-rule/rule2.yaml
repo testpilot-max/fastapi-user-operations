@@ -1,6 +1,8 @@
+id: incorrect-local-module-import
+language: Python
 rule:
-  # atomic rule
-  pattern: "import fastapi"
-  kind: "import_statement"
-  regex: "fastapi"
-  message: "Change 'import fastapi' to 'from fastapi import FastAPI, Depends, HTTPException, status'"
+  pattern: import $MODULE
+  where:
+    $MODULE:
+      matches: (database|schemas|models|crud|auth|comments)
+  fix: from $MODULE import *

@@ -1,6 +1,5 @@
+id: incorrect-comments-import
+language: Python
 rule:
-  # atomic rule
-  pattern: "sqlalchemy.orm.Session"
-  kind: "attribute"
-  regex: "Session"
-  message: "Change 'sqlalchemy.orm.Session' to 'Session' and import it from sqlalchemy.orm"
+  pattern: import comments
+  fix: from comments import CommentCreate, CommentInDB, add_comment, get_comments

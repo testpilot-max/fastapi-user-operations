@@ -92,3 +92,22 @@ import fastapi.responses
 @app.get("/health")
 async def health_check():
     return fastapi.responses.JSONResponse(content={"status": "healthy"})
+
+
+@app.post("/categories", response_model=CategoryCreate)
+async def create_category(
+    category: CategoryCreate,
+    db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db),
+    current_user: models.User = fastapi.Depends(auth.get_current_user)
+):
+    # Simulating category creation
+    new_category = {
+        "name": category.name,
+        "description": category.description,
+        "created_by": current_user.username
+    }
+    
+    # Log category creation
+    print(f"New category created: {new_category['name']}")
+    
+    return CategoryCreate(**new_category)
