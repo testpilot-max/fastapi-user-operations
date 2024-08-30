@@ -1,6 +1,5 @@
+id: incorrect-fastapi-import
+language: Python
 rule:
-  # atomic rule
-  pattern: "import comments"
-  kind: "import_statement"
-  regex: "comments"
-  message: "Change to 'from comments import CommentCreate, CommentInDB, add_comment, get_comments'"
+  pattern: import fastapi
+  fix: from fastapi import FastAPI, Depends, HTTPException, status

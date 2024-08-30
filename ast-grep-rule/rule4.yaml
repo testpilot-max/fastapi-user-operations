@@ -1,6 +1,5 @@
+id: incorrect-sqlalchemy-session-import
+language: Python
 rule:
-  # atomic rule
-  pattern: "fastapi.$FUNC"
-  kind: "attribute"
-  regex: "FastAPI|Depends|HTTPException"
-  message: "Remove 'fastapi.' prefix. Use '$FUNC' directly after importing it"
+  pattern: sqlalchemy.orm.Session
+  fix: Session

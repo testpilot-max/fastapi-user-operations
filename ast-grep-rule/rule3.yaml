@@ -1,6 +1,8 @@
+id: incorrect-fastapi-function-usage
+language: Python
 rule:
-  # atomic rule
-  pattern: "import $MODULE"
-  kind: "import_statement"
-  regex: "database|schemas|models|crud|auth|comments"
-  message: "Use 'from $MODULE import *' instead of 'import $MODULE'"
+  pattern: fastapi.$FUNC
+  where:
+    $FUNC:
+      matches: (FastAPI|Depends|HTTPException)
+  fix: $FUNC
