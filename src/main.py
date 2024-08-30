@@ -18,6 +18,25 @@ def register_user(user: schemas.UserCreate, db: sqlalchemy.orm.Session = fastapi
     db_user = crud.create_user(db, user)
     return schemas.UserInDB(id=db_user.id, username=db_user.username)
 
+@app.get("/users/", response_model=List[schemas.User])
+async def read_users(skip: int = 0, limit: int = 100, db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)):
+    users = crud.get_users(db, skip=skip, limit=limit)
+    return users
+
+@app.post("/users/", response_model=schemas.User)
+async def create_user(user: schemas.UserCreate, db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise fastapi.HTTPException(status_code=400, detail="Email already registered")
+    return crud.create_user(db=db, user=user)
+
+@app.get("/users/{user_id}", response_model=schemas.User)
+async def read_user(user_id: int, db: sqlalchemy.orm.Session = fastapi.Depends(database.get_db)):
+    db_user = crud.get_user(db, user_id=user_id)
+    if db_user is None:
+        raise fastapi.HTTPException(status_code=404, detail="User not found")
+    return db_user
+
 @app.post("/items/", response_model=Item)
 async def create_item(item: Item):
     return item
